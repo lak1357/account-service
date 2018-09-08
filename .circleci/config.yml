@@ -2,14 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/openjdk:8-jdk
       
-
     working_directory: ~/repo
 
     environment:
-      # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
     
     steps:
@@ -20,26 +17,16 @@ jobs:
           command: sudo apt-get update
 
       - run:
-          name: Install Repository 1
-          command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          name: Install Docker 1
+          command: curl -fsSL https://get.docker.com -o get-docker.sh
           
       - run:
-          name: Install Repository 2
-          command: sudo apt-get install lsb-release
- 
-      - run:
-          name: Install Repository 3
-          command: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb-release -cs) stable"
+          name: Install Docker 2
+          command: sudo sh get-docker.sh
       
-      - run:
-          name: Install Docker
-          command: sudo apt-get install -y docker-ce
-      
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run: mvn dependency:go-offline
