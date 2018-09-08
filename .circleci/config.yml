@@ -29,6 +29,4 @@ jobs:
           command: |
             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
             docker tag account-service $DOCKER_HUB_USER_ID/account-service:$CIRCLE_SHA1
-            docker tag account-service $DOCKER_HUB_USER_ID/account-service:latest
             docker push $DOCKER_HUB_USER_ID/account-service:$CIRCLE_SHA1
-            docker push $DOCKER_HUB_USER_ID/account-service:latest
