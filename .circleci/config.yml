@@ -15,14 +15,13 @@ jobs:
     steps:
       - checkout
 
-     - run:
+      - run:
           name: Install Repo
           command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
  
-     - run:
+      - run:
           name: Install Repo
           command: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-      
       
       - run:
           name: Install Docker
