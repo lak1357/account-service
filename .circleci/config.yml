@@ -11,23 +11,7 @@ jobs:
     
     steps:
       - checkout
-      
-      - run:
-          name: Update the Docker Image
-          command: sudo apt-get update
-
-      - run:
-          name: Install Docker 1
-          command: curl -fsSL https://get.docker.com -o get-docker.sh
-          
-      - run:
-          name: Install Docker 2
-          command: sudo sh get-docker.sh
-      
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          - v1-dependencies-
+      - setup_remote_docker
 
       - run: mvn dependency:go-offline
 
