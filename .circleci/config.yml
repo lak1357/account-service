@@ -20,16 +20,15 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
         
-      # run tests!
       - run: mvn integration-test
       
-      - run: docker build --rm=false -t $DOCKER_HUB_USER_ID/account-service .
+      - run: docker build -t $DOCKER_HUB_USER_ID/account-service:$CIRCLE_SHA1 .
       
       - deploy:
           name: Publish application to docker hub
           command: |
             docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-            docker tag dockerapp_dockerapp $DOCKER_HUB_USER_ID/account-service:$CIRCLE_SHA1
-            docker tag dockerapp_dockerapp $DOCKER_HUB_USER_ID/account-service:latest
+            docker tag account-service $DOCKER_HUB_USER_ID/account-service:$CIRCLE_SHA1
+            docker tag account-service $DOCKER_HUB_USER_ID/account-service:latest
             docker push $DOCKER_HUB_USER_ID/account-service:$CIRCLE_SHA1
             docker push $DOCKER_HUB_USER_ID/account-service:latest
