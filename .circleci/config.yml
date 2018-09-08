@@ -14,22 +14,26 @@ jobs:
     
     steps:
       - checkout
+      
+      - run:
+          name: Update the Docker Image
+          command: sudo apt-get update
 
       - run:
-          name: Install Repository
+          name: Install Repository 1
           command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
           
       - run:
-          name: Install Repository
+          name: Install Repository 2
           command: sudo apt-get install lsb-release
  
       - run:
-          name: Install Repository
-          command: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          name: Install Repository 3
+          command: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb-release -cs) stable"
       
       - run:
           name: Install Docker
-          command: sudo apt-get update && sudo apt-get install -y docker-ce
+          command: sudo apt-get install -y docker-ce
       
       # Download and cache dependencies
       - restore_cache:
