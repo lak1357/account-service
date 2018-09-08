@@ -16,11 +16,15 @@ jobs:
       - checkout
 
       - run:
-          name: Install Repo
+          name: Install Repository
           command: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          
+      - run:
+          name: Install Repository
+          command: sudo apt-get install lsb-release
  
       - run:
-          name: Install Repo
+          name: Install Repository
           command: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
       
       - run:
